@@ -1,0 +1,85 @@
+<div class="row">
+  <header class="col-md-12">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Angular Mock Back End</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+</div>
+
+
+<section>
+  <div class="row">
+    <div class="col-md-6">
+      <form #f="ngForm">
+        <div class="form-group">
+          <input [(ngModel)]="myTask" name="myTask" type="text" class="form-control" placeholder="Enter Task" required>
+        </div>
+
+        <p *ngIf="loading">
+          <i class="fa fa-spinner fa-spin"></i>
+        </p>
+
+        <div class="form-group">
+          <button class="btn btn-primary" [disabled]="!f.valid" (click)="create()">
+            Save Task
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <table class="table table-hover">
+        <tr>
+          <th>#</th>
+          <th>Task</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let task of tasks">
+          <td>{{task.id}}</td>
+          <td>
+            <span *ngIf="!task.editing">{{task.description}}</span>
+            <div *ngIf="task.editing">
+              <div class="form-group">
+                <input type="text" [(ngModel)]="taskEdit.description" />
+              </div>
+              <div class="form-group">
+                <button class="btn btn-warning" (click)="saveEdit(task)">
+                  Save
+                </button>
+              </div>
+            </div>
+
+          </td>
+          <td>
+            <button class="btn btn-success" [disabled]="editMode" (click)="edit(task)">
+              <i class="fa fa-edit"></i>
+            </button>
+
+            <button class="btn btn-danger" [disabled]="editMode" (click)="delete(task)">
+              <i class="fa fa-remove"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
